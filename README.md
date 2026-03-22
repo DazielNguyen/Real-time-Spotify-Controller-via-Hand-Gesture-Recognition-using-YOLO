@@ -14,6 +14,7 @@ A sophisticated real-time hand gesture recognition system powered by YOLOv8 obje
 - [Features](#features)
 - [System Architecture](#system-architecture)
 - [Project Structure](#project-structure)
+- [Quick Start](#quick-start)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Performance Metrics](#performance-metrics)
@@ -21,6 +22,7 @@ A sophisticated real-time hand gesture recognition system powered by YOLOv8 obje
 - [Configuration](#configuration)
 - [Troubleshooting](#troubleshooting)
 - [Research Paper](#research-paper)
+- [Documentation](#documentation)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -91,58 +93,88 @@ A sophisticated real-time hand gesture recognition system powered by YOLOv8 obje
 ```
 real-time-spotify-controller/
 │
-├── README.md                          # This file
+├── README.md                          # Project documentation
+├── STRUCTURE.md                       # Detailed folder organization guide
+├── CONTRIBUTING.md                    # Contribution guidelines
+├── CHECKLIST.md                       # Project completion checklist
+├── QUICKSTART.md                      # 3-minute quick start guide
 ├── requirements.txt                   # Python dependencies
-├── LICENSE                            # MIT License
+├── setup.py                           # Package installation configuration
 │
-├── src/                               # Source code
-│   ├── hand_tracking.py               # Main inference script
-│   ├── generate_report_figures.py      # Metrics visualization
-│   └── generate_pipeline_and_realtime_figures.py  # Diagram generation
+├── src/                               # Source code directory
+│   ├── hand_tracking.py               # Main real-time inference script
+│   ├── train_yolo.py                  # YOLO model training script
+│   ├── setup_and_train.py             # Training setup and initialization
+│   ├── debug.py                       # Debugging utilities
+│   └── freihand_to_yolo.py            # Dataset conversion tool
 │
-├── models/                            # Model weights
+├── models/                            # Model weights and checkpoints
 │   └── weights/
-│       ├── yolov8n.pt                 # YOLOv8 Nano pretrained
-│       └── yolo26n.pt                 # Alternative checkpoint
+│       ├── yolov8n.pt                 # YOLOv8 Nano pretrained (6.2MB)
+│       └── yolo26n.pt                 # Alternative checkpoint (5.3MB)
 │
-├── dataset/                           # Training dataset
+├── dataset/                           # Training dataset (10,608 images)
 │   ├── images/
 │   │   ├── train/                     # 8,487 training images
 │   │   └── val/                       # 2,121 validation images
 │   ├── labels/                        # YOLO format annotations
 │   │   ├── train/                     # Training labels
 │   │   └── val/                       # Validation labels
-│   ├── data.yaml                      # Dataset configuration
+│   ├── data.yaml                      # Dataset configuration for training
 │   ├── data_runtime.yaml              # Runtime configuration
-│   └── classes.txt                    # Class definitions
+│   └── classes.txt                    # Gesture class definitions (7 classes)
 │
-├── runs/                              # Training outputs
+├── runs/                              # Training outputs and results
 │   └── detect/
-│       └── gesture_v100_ft/           # Fine-tuned model results
-│           ├── weights/
-│           │   ├── best.pt            # Best epoch checkpoint
-│           │   └── last.pt            # Final epoch checkpoint
-│           └── results.csv            # Training metrics (100 epochs)
+│       ├── gesture_v100_ft/           # Fine-tuned model results (100 epochs)
+│       │   ├── weights/
+│       │   │   ├── best.pt            # Best checkpoint (Epoch 85, mAP50-95=0.876)
+│       │   │   └── last.pt            # Final checkpoint (Epoch 100)
+│       │   ├── results.csv            # Training metrics log
+│       │   ├── confusion_matrix.png   # Classification confusion matrix
+│       │   └── BoxPR_curve.png        # Precision-Recall curves
+│       └── training_progress_stage1.json  # Training progress metadata
 │
-├── docs/                              # Documentation
+├── docs/                              # Documentation and research
 │   ├── report.md                      # Technical research paper (IEEE format)
-│   └── figures/                       # Generated visualizations
-│       ├── fig1_pipeline_placeholder.png     # Architecture flowchart
-│       ├── fig2_metrics_placeholder.png      # Performance curves
-│       ├── fig3_loss_placeholder.png         # Training loss curves
-│       └── fig4_realtime_ui_placeholder.png  # Inference UI mockup
+│   └── figures/                       # Publication-ready visualizations
+│       ├── fig1_pipeline_placeholder.png     # Architecture pipeline diagram
+│       ├── fig2_metrics_placeholder.png      # Performance metrics curves
+│       ├── fig3_loss_placeholder.png         # Training loss curves (train/val)
+│       └── fig4_realtime_ui_placeholder.png  # Real-time inference mockup
 │
 ├── notebooks/                         # Jupyter notebooks
-│   └── YOLOv8.ipynb                   # Training notebook
+│   ├── YOLOv8.ipynb                   # Main training notebook
+│   └── yolo_tracking_hand_training.ipynb  # Alternative training notebook
 │
-├── configs/                           # Configuration files
-│   └── (Extensible for deployment configs)
+├── configs/                           # Configuration files (extensible)
+│   └── (For deployment and environment configs)
 │
-├── dataset.zip                        # Compressed dataset archive
-├── hagrid-sample-30k-384p/            # Original HaGRID dataset reference
-└── .gitignore                         # Git ignore rules
+├── hagrid-sample-30k-384p/            # Original HaGRID dataset (reference, optional)
+│   └── ann_train_val/                 # Annotations in different formats
+│
+└── .gitignore                         # Git ignore rules (excludes dataset, venv)
 
+---
+
+## Quick Start
+
+Get the gesture controller running in 3 minutes:
+
+```bash
+# 1. Clone and setup
+git clone https://github.com/DazielNguyen/Real-time-Spotify-Controller-via-Hand-Gesture-Recognition-using-YOLO.git
+cd Real-time-Spotify-Controller-via-Hand-Gesture-Recognition-using-YOLO
+python3 -m venv venv && source venv/bin/activate
+
+# 2. Install dependencies
+pip install -r requirements.txt
+
+# 3. Run the gesture controller
+python3 src/hand_tracking.py
 ```
+
+For more details, see [QUICKSTART.md](QUICKSTART.md).
 
 ---
 
@@ -451,6 +483,39 @@ using YOLOv8." Project Documentation, 2024.
 
 ---
 
+## Documentation
+
+This project includes comprehensive documentation for users and developers:
+
+### User Documentation
+
+- **[README.md](README.md)** - Complete project overview and getting started guide
+- **[QUICKSTART.md](QUICKSTART.md)** - 3-minute quick start guide for rapid setup
+- **[STRUCTURE.md](STRUCTURE.md)** - Detailed folder structure and file organization
+- **[docs/report.md](docs/report.md)** - Technical research paper (IEEE format)
+
+### Development Documentation
+
+- **[CONTRIBUTING.md](CONTRIBUTING.md)** - Contribution guidelines and development setup
+- **[CHECKLIST.md](CHECKLIST.md)** - Project completion checklist and feature status
+
+### Code Documentation
+
+Source code includes inline comments and docstrings:
+
+```bash
+# View main script documentation
+python3 -c "import sys; sys.path.insert(0, 'src'); from hand_tracking import *; help(main)"
+
+# Navigate training scripts
+ls -la src/
+# hand_tracking.py   - Real-time inference
+# train_yolo.py      - Model training pipeline
+# debug.py           - Debugging utilities
+```
+
+---
+
 ## Contributing
 
 Contributions are welcome! Please follow these guidelines:
@@ -522,6 +587,7 @@ For issues, questions, or suggestions:
 
 ---
 
-**Last Updated**: March 2024  
-**Status**: ✅ Production Ready
+**Last Updated**: March 2026  
+**Status**: ✅ Production Ready  
+**Repository**: [GitHub](https://github.com/DazielNguyen/Real-time-Spotify-Controller-via-Hand-Gesture-Recognition-using-YOLO)
 
