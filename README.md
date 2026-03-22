@@ -325,7 +325,7 @@ The following hand gestures map to media control commands:
 | 🤜 **Fist** | Play/Pause | Pause playback |
 | ☝️ **One** | Next Track | Skip to next song |
 | ✌️ **Peace** | Previous Track | Return to previous song |
-| 🖌️ **Three** | Volume Up | Increase system volume by 5% |
+| ✋ **Three** | Volume Up | Increase system volume by 5% |
 | ✋ **Four** | Volume Down | Decrease system volume by 5% |
 | 🖐️ **Palm** | Play | Resume playback |
 
